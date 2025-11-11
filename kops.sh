@@ -14,6 +14,13 @@ mv kubectl /usr/local/bin/kubectl
 #aws s3api put-bucket-versioning --bucket mustafa.project.flm.k8s.local --region us-east-1 --versioning-configuration Status=Enabled
 export KOPS_STATE_STORE=s3://jagadeesh.mybucket.k8s.local
 kops create cluster --name jagadeesh.aws.k8s.local --zones us-east-1a,us-east-1b --master-count=1 --master-size t2.medium --master-volume-size=25 --node-count=2 --node-size t2.micro --node-volume-size=20 --yes
+sudo yum install -y bash-completion
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
+source ~/.bashrc
+echo 'alias k=kubectl' >> ~/.bashrc
+echo 'complete -F __start_kubectl k' >> ~/.bashrc
+source ~/.bashrc
+
 kops update cluster --name jagadeesh.aws.k8s.local --yes --admin
 
 
